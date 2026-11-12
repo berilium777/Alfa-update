@@ -41,10 +41,28 @@
 <body>
   <div class="card">
     <h2>Alfa Android</h2>
-    <p>Version 1.0.0-602010is available.</p>
-    <a href="https://github.com/berilium777/Alfa-update/releases/download/1.0.0-602010/alfa-android-1.0.0-602010-signed.apk" class="btn">
+    <p id="version-text">Checking for latest version...</p>
+    <a id="download-btn" href="https://github.com" class="btn">
       Download & Update App
     </a>
   </div>
+
+  <script>
+    fetch('https://github.com')
+      .then(response => response.json())
+      .then(data => {
+        const version = data.tag_name;
+        document.getElementById('version-text').textContent = `Version ${version} is available.`;
+
+        // Finds the first .apk file attached to the latest release
+        const apkAsset = data.assets.find(asset => asset.name.endsWith('.apk'));
+        if (apkAsset) {
+          document.getElementById('download-btn').href = apkAsset.browser_download_url;
+        }
+      })
+      .catch(() => {
+        document.getElementById('version-text').textContent = 'Latest version is available.';
+      });
+  </script>
 </body>
 </html>
