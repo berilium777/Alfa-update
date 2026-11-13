@@ -48,7 +48,7 @@
   </div>
 
   <script>
-    fetch('https://github.com')
+    fetch('https://api.github.com/repos/berilium777/Alfa-update/releases/latest')
       .then(response => response.json())
       .then(data => {
         const version = data.tag_name;
